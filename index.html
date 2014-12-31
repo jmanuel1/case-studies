@@ -18,26 +18,36 @@
         <link rel="import"
             href="bower_components/core-menu/core-submenu.html"/>
         <link rel="import"
-            href="bower_components/flatiron-director/flatiron-director.html"/>
+            href="bower_components/app-router/app-router.html"/>
         <link rel="stylesheet" href="styles/main.css"/>
     </head>
     <body unresolved>
         <template is="auto-binding">
-            <flatiron-director route="{{route}}" autoHash></flatiron-director>
+            <app-router core-animated-pages transitions="cross-fade">
+                <app-route path="/home" import="/pages/home-page.html">
+                </app-route>
+                <template repeat="{{topic in topics}}">
+                    <template repeat="{{page in topic.pages}}">
+                        <app-route path="/{{page}}"
+                            import="/pages/{{page}}-page.html">
+                        </app-route>
+                    </template>
+                </template>
+            </app-router>
             <core-drawer-panel>
                 <core-header-panel drawer>
                     <core-toolbar>
                         <div>Pages</div>
                     </core-toolbar>
-                    <core-menu valueattr="hash" selected="{{route}}"
+                    <core-menu valueattr="path" selected="{{route}}"
                         on-core-select="{{ignoreSubmenu}}">
-                        <core-item label="Home" hash="home">
+                        <core-item label="Home" path="/home">
                             <a href="#home"></a>
                         </core-item>
                         <template repeat="{{topic in topics}}">
                             <core-submenu label="{{topic.name}}">
                                 <template repeat="{{page in topic.pages}}">
-                                    <core-item label="{{page.name}}" hash="{{page.hash}}">
+                                    <core-item label="{{page.name}}" path="{{page.hash}}">
                                         <a href="#{{page.hash}}"></a>
                                     </core-item>
                                 </template>
