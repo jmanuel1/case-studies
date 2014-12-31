@@ -1,0 +1,22 @@
+{
+  "name": "case-studies",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmanuel1/case-studies",
+  "authors": [
+    "Jason Manuel <jama.indo@hotmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.2",
+    "core-elements": "Polymer/core-elements#~0.5.2",
+    "paper-elements": "Polymer/paper-elements#~0.5.2"
+  }
+}
