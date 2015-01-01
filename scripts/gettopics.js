@@ -1,7 +1,7 @@
 function getTopics(callback)
 {
     var xmlhttp = new XMLHttpRequest();
-    var url = "/data/topics.json";
+    var url = "/case-studies/data/topics.json"; // Make it relative to the current directory
     var topics;
     
     xmlhttp.onreadystatechange = function (){

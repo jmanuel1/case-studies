@@ -1,0 +1,78 @@
+<html>
+    <head>
+    	<title>Geography Case Studies for IGCSE</title>
+        <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+        <link rel="import" href="bower_components/font-roboto/roboto.html">
+        <link rel="import"
+            href="bower_components/core-header-panel/core-header-panel.html">
+        <link rel="import"
+            href="bower_components/core-toolbar/core-toolbar.html">
+        <link rel="import"
+            href="bower_components/core-drawer-panel/core-drawer-panel.html">
+        <link rel="import"
+            href="bower_components/core-icon-button/core-icon-button.html"/>
+        <link rel="import" href="bower_components/core-menu/core-menu.html"/>
+        <link rel="import" href="bower_components/core-item/core-item.html"/>
+        
+        <!-- core-animated-pages and transitions -->
+        <link rel="import"
+            href="bower_components/core-animated-pages/core-animated-pages.html"/>
+        <link rel="import"
+            href="bower_components/core-animated-pages/transitions/cross-fade.html"/>
+            
+        <link rel="import"
+            href="bower_components/core-menu/core-submenu.html"/>
+        <link rel="import"
+            href="bower_components/app-router/app-router.html"/>
+        <link rel="stylesheet" href="styles/main.css"/>
+    </head>
+    <body unresolved>
+        <template is="auto-binding">
+            <core-drawer-panel>
+                <core-header-panel drawer>
+                    <core-toolbar>
+                        <div>Pages</div>
+                    </core-toolbar>
+                    <core-menu>
+                        <core-item label="Home">
+                            <a href="/#/home"></a>
+                        </core-item>
+                        <template repeat="{{topic in topics}}">
+                            <core-submenu label="{{topic.name}}">
+                                <template repeat="{{page in topic.pages}}">
+                                    <core-item label="{{page}}">
+                                        <a href="/#/{{page | tolower}}"></a>
+                                    </core-item>
+                                </template>
+                            </core-submenu>
+                        </template>
+                    </core-menu>
+                </core-header-panel>
+                <core-header-panel main>
+                    <core-toolbar>
+                        <core-icon-button icon="menu" core-drawer-toggle>
+                        </core-icon-button>
+                        <div>Geography Case Studies for IGCSE</div>
+                    </core-toolbar>
+                    <app-router core-animated-pages transitions="cross-fade">
+                        <!-- Default route (to home) -->
+                        <app-route path="/" import="/pages/home-page.html">
+                        </app-route>
+                        <app-route path="/home" import="/pages/home-page.html">
+                        </app-route>
+                        <template repeat="{{topic in topics}}">
+                            <template repeat="{{page in topic.pages}}">
+                                <app-route path="/{{page | tolower}}"
+                                    import="/pages/{{page | tolower}}-page.html">
+                                </app-route>
+                            </template>
+                        </template>
+                    </app-router>
+                </core-header-panel>
+            </core-drawer-panel>
+        </template>
+        
+        <script src="scripts/gettopics.js"></script>
+        <script src="scripts/app.js"></script>
+    </body>
+</html>
