@@ -1,0 +1,89 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="marked-import.html">
+<!--<script src="require.js"></script>-->
+<script src="/bower_components/underscore.string/dist/underscore.string.min.js">
+</script>
+
+<!--
+Web Component wrapper for Markdown using Polymer.
+
+##### Example
+
+    <mark-down>
+      Hello, **world!**
+    </mark-down>
+
+or alternatively:
+
+    <mark-down text="Hello, **world!**"></mark-down>
+
+@element mark-down
+@blurb Web Component wrapper for Markdown using Polymer.
+@status alpha
+@homepage http://robdodson.github.io/mark-down
+-->
+<polymer-element name="mark-down" attributes="text">
+  <template>
+    <link rel="stylesheet" href="mark-down.css">
+    <div id="markdown"></div>
+  </template>
+  <script>
+    Polymer("mark-down", {
+      /**
+       * The `text` attribute can be set to a string of Markdown
+       * that you would like to see rendered
+       *
+       * @attribute text
+       * @type string
+       */
+
+      /**
+       * The `mark-down-ready` event is fired after the marked-up HTML is
+       * inserted into the parent container.
+       *
+       * @event mark-down-ready
+       */
+
+      ready: function() {
+        //require(["/bower_components/underscore.string/dedent.js"],
+          //function (dedent){
+            this.text = this.text || this.dedent(this.textContent);
+          //});
+      },
+      textChanged: function() {
+        if (this.text === null) {
+          this.$.markdown.innerHTML = '';
+        } else {
+          this.$.markdown.innerHTML = marked(this.text);
+        }
+        this.fire('mark-down-ready');
+      },
+      // Thanks Ryan Seddon! (https://github.com/ryanseddon/markdown-component)
+      // Remove all leading/trailing whitespace so it's not confused as
+      // a code block
+      /*trim: function(str) {
+        return str.replace(/^[^\S\n]+/gm,'');
+      }*/
+      
+      /* Thanks to Malthe Borch (@malthe) for this dedent function:
+      https://gist.github.com/malthe/02350255c759d5478e89 */
+      dedent: function(text) {
+        var re_whitespace = /^([ \t]*)(.*)\n/gm;
+        var l, m, i;
+     
+        while ((m = re_whitespace.exec(text)) !== null) {
+            if (!m[2]) continue;
+     
+            if (l = m[1].length) {
+                i = (i !== undefined) ? Math.min(i, l) : l;
+            } else break;
+        }
+     
+        if (i)
+            text = text.replace(new RegExp('^[ \t]{' + i + '}(.*\n)', 'gm'), '$1');
+     
+        return text;
+      }
+    });
+  </script>
+</polymer-element>

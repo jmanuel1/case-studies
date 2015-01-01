@@ -13,8 +13,13 @@
             href="bower_components/core-icon-button/core-icon-button.html"/>
         <link rel="import" href="bower_components/core-menu/core-menu.html"/>
         <link rel="import" href="bower_components/core-item/core-item.html"/>
+        
+        <!-- core-animated-pages and transitions -->
         <link rel="import"
             href="bower_components/core-animated-pages/core-animated-pages.html"/>
+        <link rel="import"
+            href="bower_components/core-animated-pages/transitions/cross-fade.html"/>
+            
         <link rel="import"
             href="bower_components/core-menu/core-submenu.html"/>
         <link rel="import"
@@ -23,32 +28,20 @@
     </head>
     <body unresolved>
         <template is="auto-binding">
-            <app-router core-animated-pages transitions="cross-fade">
-                <app-route path="/home" import="/pages/home-page.html">
-                </app-route>
-                <template repeat="{{topic in topics}}">
-                    <template repeat="{{page in topic.pages}}">
-                        <app-route path="/{{page}}"
-                            import="/pages/{{page}}-page.html">
-                        </app-route>
-                    </template>
-                </template>
-            </app-router>
             <core-drawer-panel>
                 <core-header-panel drawer>
                     <core-toolbar>
                         <div>Pages</div>
                     </core-toolbar>
-                    <core-menu valueattr="path" selected="{{route}}"
-                        on-core-select="{{ignoreSubmenu}}">
-                        <core-item label="Home" path="/home">
-                            <a href="#home"></a>
+                    <core-menu>
+                        <core-item label="Home">
+                            <a href="/#/home"></a>
                         </core-item>
                         <template repeat="{{topic in topics}}">
                             <core-submenu label="{{topic.name}}">
                                 <template repeat="{{page in topic.pages}}">
-                                    <core-item label="{{page.name}}" path="{{page.hash}}">
-                                        <a href="#{{page.hash}}"></a>
+                                    <core-item label="{{page}}">
+                                        <a href="/#/{{page | tolower}}"></a>
                                     </core-item>
                                 </template>
                             </core-submenu>
@@ -61,23 +54,25 @@
                         </core-icon-button>
                         <div>Geography Case Studies for IGCSE</div>
                     </core-toolbar>
-                    <core-animated-pages valueattr="hash"
-                        transitions="cross-fade" selected="{{route}}">
-                        <section hash="home">
-                            <div cross-fade>Home page content...</div>
-                        </section>
+                    <app-router core-animated-pages transitions="cross-fade">
+                        <!-- Default route (to home) -->
+                        <app-route path="/" import="/pages/home-page.html">
+                        </app-route>
+                        <app-route path="/home" import="/pages/home-page.html">
+                        </app-route>
                         <template repeat="{{topic in topics}}">
                             <template repeat="{{page in topic.pages}}">
-                                <section hash="{{page.hash}}">
-                                    <div cross-fade>{{page.name}}</div>
-                                </section>
+                                <app-route path="/{{page | tolower}}"
+                                    import="/pages/{{page | tolower}}-page.html">
+                                </app-route>
                             </template>
                         </template>
-                    </core-animated-pages>
+                    </app-router>
                 </core-header-panel>
             </core-drawer-panel>
         </template>
         
+        <script src="scripts/gettopics.js"></script>
         <script src="scripts/app.js"></script>
     </body>
 </html>
