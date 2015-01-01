@@ -35,13 +35,13 @@
                     </core-toolbar>
                     <core-menu>
                         <core-item label="Home">
-                            <a href="/#/home"></a>
+                            <a href="((/))#/home"></a>
                         </core-item>
                         <template repeat="{{topic in topics}}">
                             <core-submenu label="{{topic.name}}">
                                 <template repeat="{{page in topic.pages}}">
                                     <core-item label="{{page}}">
-                                        <a href="/#/{{page | tolower}}"></a>
+                                        <a href="((/))#/{{page | tolower}}"></a>
                                     </core-item>
                                 </template>
                             </core-submenu>
@@ -56,9 +56,9 @@
                     </core-toolbar>
                     <app-router core-animated-pages transitions="cross-fade">
                         <!-- Default route (to home) -->
-                        <app-route path="/" import="((/))pages/home-page.html">
+                        <app-route path="((/))" import="((/))pages/home-page.html">
                         </app-route>
-                        <app-route path="/home" import="((/))pages/home-page.html">
+                        <app-route path="((/))home" import="((/))pages/home-page.html">
                         </app-route>
                         <template repeat="{{topic in topics}}">
                             <template repeat="{{page in topic.pages}}">
