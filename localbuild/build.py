@@ -6,7 +6,9 @@ import subprocess, shutil, os
 entries = os.listdir("..")
 entries = list(set(entries) ^ {"src"}) # do not delete ourselves
 for entry in entries:
-    if os.path.isfile(entry):
+    if entry.startswith("."): # ignore anything starting with a period (*especially* .git)
+        pass
+    elif os.path.isfile(entry):
         os.remove("../" + entry)
     else:
         shutil.rmtree("../" + entry)

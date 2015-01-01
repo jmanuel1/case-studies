@@ -56,9 +56,9 @@
                     </core-toolbar>
                     <app-router core-animated-pages transitions="cross-fade">
                         <!-- Default route (to home) -->
-                        <app-route path="/" import="/pages/home-page.html">
+                        <app-route path="/" import="((/))pages/home-page.html">
                         </app-route>
-                        <app-route path="/home" import="/pages/home-page.html">
+                        <app-route path="/home" import="((/))pages/home-page.html">
                         </app-route>
                         <template repeat="{{topic in topics}}">
                             <template repeat="{{page in topic.pages}}">

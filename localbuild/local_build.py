@@ -13,7 +13,7 @@ shutil.copytree(".", "localbuild")
         
 # file-replace
 os.chdir("localbuild")
-subprocess.call(["python", "file-replace.py", "localReplace"], stdout=sys.stdout)
+subprocess.call(["python", "file-replace.py", "localReplace"])
 
 print("Local build finisished: " + os.getcwd())
 

@@ -32,13 +32,14 @@ TMP = "fileReplace.tmp"
 # for each file
 for file in files:
     with open(file) as f, open(TMP, "w") as t:
-        lineno = count(1)
+        counter = count(1)
         for line in f:
             line_ = line
+            lineno = next(counter)
             for pattern in patterns:
                 p = "((" + pattern[0] + "))"
                 if p in line_:
-                    print("Replacement of " + p + "made on line " + str(next(lineno)))
+                    print("Replacement of " + p + "made on line " + str(lineno))
                 line_ = line_.replace(p, pattern[1])
             t.write(line_)
     with open(file, "w") as f, open(TMP) as t:

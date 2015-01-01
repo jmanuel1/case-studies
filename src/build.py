@@ -5,6 +5,9 @@ import subprocess, shutil, os
 # delete everything above
 entries = os.listdir("..")
 entries = list(set(entries) ^ {"src"}) # do not delete ourselves
+if ".git" not in entries: # Parent directory is NOT a repo. STOP NOW!
+    print("Error: parent dir (..) must be a git repo [1]")
+    exit(1)
 for entry in entries:
     if entry.startswith("."): # ignore anything starting with a period (*especially* .git)
         pass
