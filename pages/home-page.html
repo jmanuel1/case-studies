@@ -3,7 +3,7 @@
 <polymer-element name="home-page">
     <template>
         <template repeat="{{topic in topics}}">
-            <div cross-fade>
+            <div style="width:50%;float:left" cross-fade>
                 <h2>{{topic.name}}</h2>
                 <p>{{topic.description}}</p>
                 
@@ -13,6 +13,8 @@
                     </template>
                 </ul>
             </div>
+            <img src="images/{{topic.name | tolower | hyphenate}}.jpg"
+                width="37%" style="float:right;vertical-align:text-top" cross-fade/>
         </template>
     </template>
     
@@ -21,6 +23,9 @@
             var prototype = {
                 tolower: function (str){
                     return str.toLowerCase();
+                },
+                hyphenate: function (str){
+                    return str.replace(" ", "-");
                 },
                 created: function (){
                     this.topics = [];
