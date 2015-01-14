@@ -1,5 +1,8 @@
-# script to copy whole tree to case-studies
-# this is done to check that the site can work under a directory
+# Script to copy whole tree to a test directory
+#
+# This is done to check that the site can work under a directory. This also
+# allows people to work on the site while they have a working copy somewhere
+# else.
 
 import subprocess, shutil, os, sys
 
